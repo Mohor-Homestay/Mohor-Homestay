@@ -19,7 +19,7 @@ const Home = () => {
           modules={[Navigation, Pagination, Autoplay]}
           navigation
           pagination={{ clickable: true }}
-          autoplay={{ delay: 5000 }}
+          autoplay={{ delay: 3000 }}
           loop={true}
           className="h-full"
         >
