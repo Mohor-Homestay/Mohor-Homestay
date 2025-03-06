@@ -22,7 +22,7 @@ app.post('/send-email', async (req: { body: { name: any; email: any; phone: any;
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: 'amarnathshee@yahoo.com',
+    to: process.env.SENT_USER,
     subject: 'New Room Booking Request',
     text: `
       Name: ${name}
