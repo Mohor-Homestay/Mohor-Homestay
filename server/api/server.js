@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-app.post('/send-email', async (req: { body: { name: any; email: any; phone: any; members: any; checkIn: any; checkOut: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message?: string; error?: string; }): void; new(): any; }; }; }) => {
+app.post('/send-email', async (req, res) => {
   const { name, email, phone, members, checkIn, checkOut } = req.body;
 
   const mailOptions = {
@@ -46,3 +46,5 @@ app.post('/send-email', async (req: { body: { name: any; email: any; phone: any;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = app;

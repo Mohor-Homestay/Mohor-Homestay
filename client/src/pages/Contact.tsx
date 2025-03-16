@@ -17,15 +17,32 @@ const Contact = () => {
     checkOut: null as Date | null
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
     try {
       await axios.post(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/send-email`, formData);
       toast.success('Thank you for your booking request! A confirmation email has been sent.');
+
+      // Clear form fields after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        members: '',
+        checkIn: null,
+        checkOut: null
+      });
+
     } catch (error) {
       console.error('Error sending email:', error);
       toast.error('Failed to send booking request. Please try again later.');
     }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -94,7 +111,7 @@ const Contact = () => {
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                 <input
@@ -158,8 +175,9 @@ const Contact = () => {
               <button
                 type="submit"
                 className="w-full bg-emerald-600 text-white py-2 px-4 rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors"
+                disabled={isSubmitting}
               >
-                Book a Room
+                {isSubmitting ? 'Booking your room...' : 'Book a Room'}
               </button>
             </form>
           </motion.div>
